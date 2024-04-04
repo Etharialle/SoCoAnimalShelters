@@ -13,6 +13,7 @@ Provide insights into the operations of the Sonoma County Animal Shelters using 
 
 ## Project Scope
 SoCo Data provides some tools for viewing, querying, and visualizing the data on their site, but these tools are limited.  Extracting the data allows for more flexibility when working with the data.
+
 ![screenshot of the tools available for interacting the the dataset](/assets/img/soco_data_actions.png)
 
 ### ETL (Extract, Transform, Load)
