@@ -12,7 +12,7 @@
 - `git pull origin main` - Pull changes from the remote repository named "origin" on the "master" branch.
 
 ## Creating a PR (Pull Request)
-1. `git fetch`
+1. `git fetch -v`
 2. `git checkout main`
 3. `git pull`
 4. `git checkout -b my-feature-branch`
