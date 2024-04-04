@@ -18,11 +18,11 @@ df_insert = pd.concat([df, df_new], axis=0)
 
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(
-    host="socodata.cps8aw0cuijp.us-east-2.rds.amazonaws.com",
+    host="host IP address",
     port=5432,
     database="postgres",
     user="postgres",
-    password="sierra42",
+    password="*****",
 )
 # Create a cursor object to execute queries
 cur = conn.cursor()
