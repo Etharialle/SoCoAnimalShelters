@@ -26,7 +26,7 @@ As with the extract process there will be two steps for transforming the data.  
 #### Load
 The cleaned CSV file is used to create the main table (animal_shelter_intake_and_outcome) in the database.
 - [CSV Dataset](/datasets/Animal_Shelter_Intake_and_Outcome_20240402.csv)
-- [SQL Script](/sql/animal_shelter_intake_and_outcome_2024032309.sql)
+- [SQL Script](/sql/animal_shelter_intake_and_outcome_202404032309.sql)
 
 New data is added to the database using the [database_insert.py](database_insert.py) script.  This script performs some transformation to ensure the new data is compatible with the database structure and then inserts the data into the database.
 
