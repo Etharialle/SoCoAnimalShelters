@@ -2,27 +2,29 @@ import pandas as pd
 import requests
 import json
 import psycopg2
+import time
 
 # Initialize DataFrame
 df = pd.DataFrame(columns=["name", "type", "breed", "color", "sex", "size", "date_of_birth", "impound_number", "kennel_number", "id", "intake_date", "outcome_date", "days_in_shelter",
-                  "intake_type", "intake_subtype", "outcome_type", "outcome_subtype", "intake_condition", "outcome_condition", "intake_jurisdiction", "outcome_jurisdiction", "zip_code"])
+                  "intake_type", "intake_subtype", "outcome_type", "outcome_subtype", "intake_condition", "outcome_condition", "intake_jurisdiction", "outcome_jurisdiction", "zip_code", "location", "count"])
 
 # SoCo Data Endpoint
-url = 'https://data.sonomacounty.ca.gov/resource/924a-vesw.json?$order=impound_number DESC&$limit=50'
+url = 'https://data.sonomacounty.ca.gov/resource/924a-vesw.json?$order=impound_number DESC&$limit=5'
 response = requests.get(url)
 print(response)
 
 new_data = json.loads(response.text)
 df_new = pd.DataFrame(data=new_data)
 df_insert = pd.concat([df, df_new], axis=0)
+df_insert = df_insert.drop('intake_total', axis=1)
 
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(
-    host="host IP address",
+    host="localhost",
     port=5432,
-    database="postgres",
+    database="socodata",
     user="postgres",
-    password="*****",
+    password="mysecretpassword",
 )
 # Create a cursor object to execute queries
 cur = conn.cursor()
@@ -50,16 +52,26 @@ for i in range(len(test)):
         loc = zip + '(' + lat + ', ' + long + ')'
         # print(loc)
         test[i][22] = loc
-    else:
-        print("null found")
+    # else:
+        # print("null found")
 for i in range(len(test)):
     for j in range(len(test[i])):
         if isinstance(test[i][j], float):
             test[i][j] = ''
         # print(type(test[i][j]))
-# print(test)
-# df2 = pd.DataFrame(test)
+for i in range(len(test)):
+    if test[i][6] != '':
+        test[i][6] = time.strftime(
+            "%m/%d/%Y", time.strptime(test[i][6][:19], "%Y-%m-%dT%H:%M:%S"))
+    if test[i][10] != '':
+        test[i][10] = time.strftime(
+            "%m/%d/%Y", time.strptime(test[i][10][:19], "%Y-%m-%dT%H:%M:%S"))
+    if test[i][11] != '':
+        test[i][11] = time.strftime(
+            "%m/%d/%Y", time.strptime(test[i][11][:19], "%Y-%m-%dT%H:%M:%S"))
 
+df_test = pd.DataFrame(test)
+print(df_test.iloc[:25, :12])
 cur.executemany(insert_stmt, test)
 
 # Commit the changes to the database
