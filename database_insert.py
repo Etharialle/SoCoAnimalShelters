@@ -70,8 +70,6 @@ for i in range(len(test)):
         test[i][11] = time.strftime(
             "%m/%d/%Y", time.strptime(test[i][11][:19], "%Y-%m-%dT%H:%M:%S"))
 
-df_test = pd.DataFrame(test)
-print(df_test.iloc[:25, :12])
 cur.executemany(insert_stmt, test)
 
 # Commit the changes to the database
