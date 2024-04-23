@@ -48,6 +48,10 @@ TBD
 ### Prescriptive Analytics (Bonus)
 TBD
 
+## Project Architecture
+
+![Project Architecture](/assets/network_diagram.drawio.png)
+
 ## Resources
 
 ### Tools Used
