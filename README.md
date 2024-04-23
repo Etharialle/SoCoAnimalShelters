@@ -50,7 +50,7 @@ TBD
 
 ## Project Architecture
 
-![Project Architecture](/assets/img/network_diagram.drawio.png)
+![Project Architecture](/assets/img/network_diagram.svg)
 
 ## Resources
 
