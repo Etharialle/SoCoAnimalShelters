@@ -9,13 +9,13 @@ import datetime
 
 
 def fetch_data():
-    url = "https://raw.githubusercontent.com/Etharialle/shelter-streamlit/main/datasets/asio.csv"
+    url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio.csv"
     df = pd.read_csv(url, on_bad_lines='skip').replace("'", "", regex=True)
     return df
 
 
 def fetch_air():
-    url = "https://raw.githubusercontent.com/Etharialle/shelter-streamlit/main/datasets/asio_animal_in_residence.csv"
+    url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio_animal_in_residence.csv"
     df_air = pd.read_csv(url, on_bad_lines='skip').replace("'", "", regex=True)
     return df_air
 
