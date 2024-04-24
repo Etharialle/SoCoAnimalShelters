@@ -35,3 +35,21 @@ services:
     depends_on:
       - app
       - test
+
+  postgres:
+    container_name: database
+    restart: "no"
+    image: postgres
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+    memswap_limit: 1.6G
+    ports:
+      - 5432:5432
+    volumes:
+      - ~/postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${db_pass}
+      - POSTGRES_USER=${db_user}
+      - POSTGRES_DB=${db_name}
