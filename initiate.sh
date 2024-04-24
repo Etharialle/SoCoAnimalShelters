@@ -1,5 +1,5 @@
 #change directory to the location of the docker-compose.yml file
-cd /home/etharialle/github/shelter-streamlit
+cd /home/etharialle/github/SoCoAnimalShelters
 
 #remove all docker containers
 docker rm -v -f $(docker ps -qa)
