@@ -49,7 +49,7 @@ def autopct_format(values):
 
 
 def main():
-    st.set_page_config(layout="wide")
+    st.set_page_config(layout="wide", page_title="Sonoma County Animal Shelter Analytics", page_icon="./assets/img/etharialle.ico")
     st.title("Sonoma County Animal Shelter Analytics")
     st.header("Open Cases by Animal Type")
     with st.sidebar:
