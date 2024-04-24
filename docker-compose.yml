@@ -1,0 +1,37 @@
+services:
+  app:
+    container_name: app
+    restart: "no"
+    build: ./app
+    ports:
+      - "8501:8501"
+    command: streamlit run app.py
+    environment:
+      - VIRTUAL_HOST=www.etharialle.com, etharialle.com, abc.etharialle.com
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+    memswap_limit: 1.6G
+
+  test:
+    container_name: test
+    restart: "no"
+    build: ./test
+    ports:
+      - "8502:8502"
+    command: streamlit run test.py
+    environment:
+      - VIRTUAL_HOST=test.etharialle.com
+
+  nginx-proxy:
+    container_name: nginx-proxy
+    restart: "no"
+    image: nginxproxy/nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+    depends_on:
+      - app
+      - test
