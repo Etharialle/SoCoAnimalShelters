@@ -3,6 +3,10 @@ import requests
 import json
 import psycopg2
 import time
+from dotenv import load_dotenv
+
+
+load_dotenv(override=True)
 
 # Initialize DataFrame
 df = pd.DataFrame(columns=["name", "type", "breed", "color", "sex", "size", "date_of_birth", "impound_number", "kennel_number", "id", "intake_date", "outcome_date", "days_in_shelter",
@@ -22,9 +26,9 @@ df_insert = df_insert.drop('intake_total', axis=1)
 conn = psycopg2.connect(
     host="localhost",
     port=5432,
-    database="socodata",
-    user="postgres",
-    password="mysecretpassword",
+    database=db_name,
+    user=db_user,
+    password=db_pass,
 )
 # Create a cursor object to execute queries
 cur = conn.cursor()
