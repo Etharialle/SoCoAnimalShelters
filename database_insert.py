@@ -4,9 +4,12 @@ import json
 import psycopg2
 import time
 from dotenv import load_dotenv
-
+import os
 
 load_dotenv(override=True)
+db_name = os.getenv("db_name")
+db_user = os.getenv("db_user")
+db_pass = os.getenv("db_pass")
 
 # Initialize DataFrame
 df = pd.DataFrame(columns=["name", "type", "breed", "color", "sex", "size", "date_of_birth", "impound_number", "kennel_number", "id", "intake_date", "outcome_date", "days_in_shelter",
@@ -35,7 +38,7 @@ cur = conn.cursor()
 
 # Insert SQL Statement
 insert_stmt = """
-    INSERT INTO animal_shelter_intake_and_outcome ("Name", "Type", "Breed", "Color", "Sex", "Size", "Date Of Birth", "Impound Number", "Kennel Number", "Animal ID", "Intake Date", "Outcome Date", "Days in Shelter", "Intake Type", "Intake Subtype", "Outcome Type", "Outcome Subtype", "Intake Condition", "Outcome Condition", "Intake Jurisdiction", "Outcome Jurisdiction", "Outcome Zip Code", "Location", "Count")
+    INSERT INTO asio ("Name", "Type", "Breed", "Color", "Sex", "Size", "Date Of Birth", "Impound Number", "Kennel Number", "Animal ID", "Intake Date", "Outcome Date", "Days in Shelter", "Intake Type", "Intake Subtype", "Outcome Type", "Outcome Subtype", "Intake Condition", "Outcome Condition", "Intake Jurisdiction", "Outcome Jurisdiction", "Outcome Zip Code", "Location", "Count")
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     ON CONFLICT ("Impound Number")
     DO UPDATE SET
