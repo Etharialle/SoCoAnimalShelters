@@ -59,7 +59,7 @@ for k, v, in date_list.items():
 df_dates = pd.DataFrame.from_dict(
     date_list, orient='index', columns=['Animals in Residence'])
 
-list_dates = [[k, str(v)] for k, v in date_list.items()]
+list_dates = [(str(k), str(v)) for k, v in date_list.items()]
 print(list_dates)
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(
