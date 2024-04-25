@@ -1,6 +1,5 @@
 streamlit==1.32.0
 pandas
 matplotlib
-psycopg2
-dotenv
-os
+psycopg2-binary
+python-dotenv
