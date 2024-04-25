@@ -16,7 +16,7 @@ df = pd.DataFrame(columns=["name", "type", "breed", "color", "sex", "size", "dat
                   "intake_type", "intake_subtype", "outcome_type", "outcome_subtype", "intake_condition", "outcome_condition", "intake_jurisdiction", "outcome_jurisdiction", "zip_code", "location", "count"])
 
 # SoCo Data Endpoint
-url = 'https://data.sonomacounty.ca.gov/resource/924a-vesw.json?$order=impound_number DESC&$limit=5'
+url = 'https://data.sonomacounty.ca.gov/resource/924a-vesw.json?$order=impound_number DESC&$limit=500'
 response = requests.get(url)
 print(response)
 
