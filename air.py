@@ -59,8 +59,7 @@ for k, v, in date_list.items():
 df_dates = pd.DataFrame.from_dict(
     date_list, orient='index', columns=['Animals in Residence'])
 
-tuple_dates = [(k, v) for k, v in date_list.items()]
-records_list_template = ','.join(['%s'] * len(tuple_dates))
+list_dates = [[k, v] for k, v in date_list.items()]
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(
     host="localhost",
@@ -75,14 +74,13 @@ cur = conn.cursor()
 # Insert SQL Statement
 insert_stmt = """
     INSERT INTO asio_animal_in_residence ("Date", "Animals in Residence")
-    VALUES {}
+    VALUES (%s, %s)
     ON CONFLICT ("Date")
     DO UPDATE SET
         ("Date", "Animals in Residence")
-""".format(records_list_template)
-
+"""
 # Execute the insert statement
-cur.execute(insert_stmt, tuple_dates)
+cur.execute(insert_stmt, list_dates)
 
 # Commit the changes to the database
 conn.commit()
