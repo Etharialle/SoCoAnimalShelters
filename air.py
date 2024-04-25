@@ -78,7 +78,7 @@ insert_stmt = """
     VALUES (%s, %s)
     ON CONFLICT ("Date")
     DO UPDATE SET
-        ("Date", "Animals in Residence") = (EXCLUDED."Date", EXCLUDED."Animals in Residence")
+        ("Animals in Residence") = (EXCLUDED."Animals in Residence")
 """
 # Execute the insert statement
 cur.execute(insert_stmt, list_dates)
