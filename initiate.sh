@@ -1,5 +1,9 @@
+#!/usr/bin/bash
 #change directory to the location of the docker-compose.yml file
 cd /home/etharialle/github/SoCoAnimalShelters
+
+#copy .env to app directory
+cp .env app/.env
 
 #remove all docker containers
 docker rm -v -f $(docker ps -qa)
