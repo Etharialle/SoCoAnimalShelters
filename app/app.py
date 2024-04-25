@@ -24,7 +24,7 @@ def fetch_data():
     #return df
     # Establish a connection to the PostgreSQL database
     conn = psycopg2.connect(
-        host="localhost",
+        host="database",
         port=5432,
         database=db_name,
         user=db_user,
@@ -49,13 +49,13 @@ def fetch_air():
 
 
 def count_open_cases(df):
-    num_open_dog_cases = df[(df['Outcome Date'].isnull()) &
+    num_open_dog_cases = df[(df['Outcome Date'] == '') &
                             (df['Type'].str.contains(
                                 'dog', na=False, case=False))].shape[0]
-    num_open_cat_cases = df[(df['Outcome Date'].isnull()) &
+    num_open_cat_cases = df[(df['Outcome Date'] == '') &
                             (df['Type'].str.contains(
                                 'cat', na=False, case=False))].shape[0]
-    num_open_other_cases = df[(df['Outcome Date'].isnull()) &
+    num_open_other_cases = df[(df['Outcome Date'] == '') &
                               (df['Type'].str.contains(
                                   'other', na=False, case=False))].shape[0]
     return num_open_dog_cases, num_open_cat_cases, num_open_other_cases
