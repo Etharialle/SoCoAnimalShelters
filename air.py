@@ -60,7 +60,7 @@ df_dates = pd.DataFrame.from_dict(
     date_list, orient='index', columns=['Animals in Residence'])
 
 tuple_dates = [(k, v) for k, v in date_list.items()]
-records_list_template = ','.join(['%s'] * len(data))
+records_list_template = ','.join(['%s'] * len(tuple_dates))
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(
     host="localhost",
