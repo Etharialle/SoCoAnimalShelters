@@ -36,13 +36,13 @@ def fetch_data():
 
 df = fetch_data()
 # Ensure 'Intake Date' is a datetime type
-df_open_cases["Intake Date"] = pd.to_datetime(
-    df_open_cases["Intake Date"])
-df_open_cases["Outcome Date"] = pd.to_datetime(
-    df_open_cases["Outcome Date"])
+df["Intake Date"] = pd.to_datetime(
+    df["Intake Date"])
+df["Outcome Date"] = pd.to_datetime(
+    df["Outcome Date"])
 
 # Animals in Residence by Date
-start_date = df_open_cases["Intake Date"].min()
+start_date = df["Intake Date"].min()
 end_date = datetime.datetime.now()
 date_list = {}
 
@@ -52,10 +52,10 @@ while start_date <= end_date:
     start_date += datetime.timedelta(days=1)
 
 for k, v, in date_list.items():
-    date_list[k] = ((pd.isnull(df_open_cases['Outcome Date']) &
-                    (df_open_cases["Intake Date"] <= k)) |
-                    ((df_open_cases["Intake Date"] <= k) &
-                    (df_open_cases['Outcome Date'] > k))).sum()
+    date_list[k] = (((pd.isnull(df['Outcome Date']) | df['Outcome Date'] == '')) &
+                    (df["Intake Date"] <= k)) |
+                    ((df["Intake Date"] <= k) &
+                    (df['Outcome Date'] > k))).sum()
 df_dates = pd.DataFrame.from_dict(
     date_list, orient='index', columns=['Animals in Residence'])
 
