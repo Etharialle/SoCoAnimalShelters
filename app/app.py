@@ -3,16 +3,42 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import time
 import datetime
+import psycopg2
+from dotenv import load_dotenv
+import os
+
+load_dotenv(override=True)
+db_name = os.getenv("db_name")
+db_user = os.getenv("db_user")
+db_pass = os.getenv("db_pass")
 
 ### Functions ###
+
+
 # Create a dataframe from a CSV file
 
 
 def fetch_data():
-    url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio.csv"
-    df = pd.read_csv(url, on_bad_lines='skip').replace("'", "", regex=True)
-    return df
+    #url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio.csv"
+    #df = pd.read_csv(url, on_bad_lines='skip').replace("'", "", regex=True)
+    #return df
+    # Establish a connection to the PostgreSQL database
+    conn = psycopg2.connect(
+        host="localhost",
+        port=5432,
+        database=db_name,
+        user=db_user,
+        password=db_pass,
+    )
+    # Create a cursor object to execute queries
+    cur = conn.cursor()
 
+    cur.execute("SELECT * FROM asio")
+    df = pd.DataFrame(cur.fetchall(), columns=[desc[0] for desc in cur.description])
+
+    cur.close()
+    conn.close()
+    return df
 
 def fetch_air():
     url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio_animal_in_residence.csv"
