@@ -17,7 +17,7 @@ def fetch_data():
     #return df
     # Establish a connection to the PostgreSQL database
     conn = psycopg2.connect(
-        host="database",
+        host="localhost",
         port=5432,
         database=db_name,
         user=db_user,
