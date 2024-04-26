@@ -41,8 +41,26 @@ def fetch_data():
     return df
 
 def fetch_air():
-    url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio_animal_in_residence.csv"
-    df_air = pd.read_csv(url, on_bad_lines='skip').replace("'", "", regex=True)
+    #url = "https://raw.githubusercontent.com/Etharialle/SoCoAnimalShelters/main/datasets/asio_animal_in_residence.csv"
+    #df_air = pd.read_csv(url, on_bad_lines='skip').replace("'", "", regex=True)
+    #return df_air
+
+    # Establish a connection to the PostgreSQL database
+    conn = psycopg2.connect(
+        host="database",
+        port=5432,
+        database=db_name,
+        user=db_user,
+        password=db_pass,
+    )
+    # Create a cursor object to execute queries
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM asio_animal_in_residence")
+    df = pd.DataFrame(cur.fetchall(), columns=[desc[0] for desc in cur.description])
+
+    cur.close()
+    conn.close()
     return df_air
 
 # Count the number of each type of animal with open cases
