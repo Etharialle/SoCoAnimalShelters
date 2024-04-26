@@ -76,9 +76,7 @@ cur = conn.cursor()
 insert_stmt = """
     INSERT INTO asio_animal_in_residence ("Date", "Animals in Residence")
     VALUES (%s, %s)
-    ON CONFLICT ("Date")
-    DO UPDATE SET
-        ("Animals in Residence") = (EXCLUDED."Animals in Residence")
+    ON CONFLICT ("Date") DO NOTHING
 """
 # Execute the insert statement
 cur.execute(insert_stmt, list_dates)
