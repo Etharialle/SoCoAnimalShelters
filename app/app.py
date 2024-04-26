@@ -57,7 +57,7 @@ def fetch_air():
     cur = conn.cursor()
 
     cur.execute("SELECT * FROM asio_animal_in_residence")
-    df = pd.DataFrame(cur.fetchall(), columns=[desc[0] for desc in cur.description])
+    df_air = pd.DataFrame(cur.fetchall(), columns=[desc[0] for desc in cur.description])
 
     cur.close()
     conn.close()
