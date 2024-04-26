@@ -76,7 +76,7 @@ for i in range(len(test)):
     if test[i][11] != '':
         test[i][11] = time.strftime(
             "%m/%d/%Y", time.strptime(test[i][11][:19], "%Y-%m-%dT%H:%M:%S"))
-
+print(test)
 cur.executemany(insert_stmt, test)
 
 # Commit the changes to the database

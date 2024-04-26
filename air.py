@@ -59,8 +59,8 @@ for k, v, in date_list.items():
 df_dates = pd.DataFrame.from_dict(
     date_list, orient='index', columns=['Animals in Residence'])
 
-list_dates = [(str(k), str(v)) for k, v in date_list.items()]
-print(list_dates)
+list_dates = [[str(k), str(v)] for k, v in date_list.items()]
+
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(
     host="localhost",
@@ -76,10 +76,12 @@ cur = conn.cursor()
 insert_stmt = """
     INSERT INTO asio_animal_in_residence ("Date", "Animals in Residence")
     VALUES (%s, %s)
-    ON CONFLICT ("Date") DO NOTHING
+    ON CONFLICT ("Date")
+    DO UPDATE SET
+        "Animals in Residence" = EXCLUDED."Animals in Residence"
 """
 # Execute the insert statement
-cur.execute(insert_stmt, list_dates)
+cur.executemany(insert_stmt, list_dates)
 
 # Commit the changes to the database
 conn.commit()
